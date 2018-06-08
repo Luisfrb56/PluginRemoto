@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.luis.pluginremoto;
 
 import java.awt.event.ActionEvent;
@@ -31,14 +26,16 @@ public final class PluginRemotoCOD implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //Primero pedimos un nombre para el repositorio que despues vamos a usar.
-        String nombre=JOptionPane.showInputDialog("Inserte el nombre del repositorio:");
+        String user=JOptionPane.showInputDialog("Nombre del usuario: ");
+        String password=JOptionPane.showInputDialog("Contraseña: ");
+        String repo=JOptionPane.showInputDialog("Nombre del repositorio");
         try{
             //Conectamos con github atraves .connect
-            GitHub github=GitHub.connect();
+            GitHub github=GitHub.connectUsingPassword(user, password);
             //Creamos el repositorio
             GHCreateRepositoryBuilder builder;
             //Insertamos el nombre que deseamos
-            builder=github.createRepository(nombre);
+            builder=github.createRepository(repo);
             //Fin de la creacion.
             builder.create();
         }catch(IOException ex){
